@@ -7,7 +7,7 @@ void print_maze__ascii(MazeGenerator& mg) {
 
   for (int y = 0; y < mg.getH(); y++) {
     for (int x = 0; x < mg.getW(); x++) {
-      std::cout << w[mg.getCell(x, y)];
+      std::cout << w[mg.getCell(x, y) & 0b1111];
     }
     std::cout << std::endl;
   }
