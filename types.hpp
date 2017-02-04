@@ -2,6 +2,7 @@
 
 #include <utility>
 #include <iostream>
+#include <vector>
 
 typedef unsigned int uint;
 
@@ -24,3 +25,24 @@ uint opposite_dir(uint dir) {
       exit(1);
   }
 }
+
+struct Point {
+  uint x;
+  uint y;
+  Point operator+(const Point& rhs) const {
+    return Point{x + rhs.x, y + rhs.y};
+  }
+};
+
+template<class T, class Allocator = std::allocator<T>>
+class Vector2D : public std::vector<T, Allocator> {
+private:
+  size_t w;
+  size_t h;
+public:
+  Vector2D(size_t s, T def) : std::vector<T, Allocator>(s, def) {};
+
+  void setW(size_t _w) { w = _w; };
+  void setH(size_t _h) { h = _h; };
+  const T& at2D(size_t x, size_t y) { return std::vector<T, Allocator>::at(y * w + x); };
+};
