@@ -3,6 +3,8 @@ Some toy maze-ing
 
 The purpose is to see how a maze can be generated and solved, what kind of variations are there. The final goal is to see how an unaware solver can go through.
 
+![Example](./example/sdlmaze1616.png)
+
 
 # Requirements
 

@@ -1,6 +1,9 @@
+#pragma once
+
 #include <SDL.h>
 #include <iostream>
 #include <map>
+
 #include "MazeGenerator.h"
 #include "types.hpp"
 
@@ -29,7 +32,7 @@ DrawEngine::DrawEngine(MazeGenerator& _mg, size_t _pixelSize = 1) : mg(_mg), pix
     exit(1);
   }
 
-  win = SDL_CreateWindow("Maze", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (mg.getW() + 2) * pixelSize * 4, (mg.getH() + 2) * pixelSize * 4, SDL_WINDOW_SHOWN);
+  win = SDL_CreateWindow("Maze", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (mg.getW() + 2) * pixelSize * 4, (mg.getH() + 2) * pixelSize * 4, SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS);
   if (win == nullptr) {
     std::cerr << "Window creation error\n";
     exit(1);
@@ -63,34 +66,38 @@ void DrawEngine::run() {
 }
 
 void DrawEngine::draw() {
-  SDL_SetRenderDrawColor(renderer, 200, 200, 100, 255);
+  // Clear background.
+  SDL_SetRenderDrawColor(renderer, 20, 40, 60, 255);
+  SDL_RenderClear(renderer);
 
+  // Basic cell background.
+  SDL_SetRenderDrawColor(renderer, 100, 150, 200, 255);
+  SDL_Rect rectFull{int(pixelSize * 4), int(pixelSize * 4), int(mg.getW() * pixelSize * 4), int(mg.getH() * pixelSize * 4)};
+  SDL_RenderFillRect(renderer, &rectFull);
+  
+  SDL_SetRenderDrawColor(renderer, 20, 40, 60, 255);
   for (int y = 0; y < mg.getH(); y++) {
     for (int x = 0; x < mg.getW(); x++) {
       int cx = int(((x + 1) * pixelSize * 4));
       int cy = int(((y + 1) * pixelSize * 4));
 
-      if (mg.getCell(x, y) == CELL_EMPTY) {
-        SDL_Rect cell{cx, cy, int(pixelSize * 4), int(pixelSize * 4)};
-        SDL_RenderFillRect(renderer, &cell);
-      } else {
-        std::map<uint, SDL_Rect> sides{
-          {CELL_UP, {cx, cy, int(pixelSize * 4), int(pixelSize)}},
-          {CELL_DOWN, {cx, int(cy + pixelSize * 3), int(pixelSize * 4), int(pixelSize)}},
-          {CELL_LEFT, {cx, cy, int(pixelSize), int(pixelSize * 4)}},
-          {CELL_RIGHT, {int(cx + pixelSize * 3), cy, int(pixelSize), int(pixelSize * 4)}},
-        };
-        for (auto const &side : sides) {
-          if (!(side.first & mg.getCell(x, y))) {
-            SDL_RenderFillRect(renderer, &side.second);
-          }
+      // "Carve" out the roads.
+      std::map<uint, SDL_Rect> sides{
+        {CELL_UP, {int(cx + pixelSize), cy, int(pixelSize * 2), int(pixelSize * 3)}},
+        {CELL_DOWN, {int(cx + pixelSize), int(cy + pixelSize), int(pixelSize * 2), int(pixelSize * 3)}},
+        {CELL_LEFT, {cx, int(cy + pixelSize), int(pixelSize * 3), int(pixelSize * 2)}},
+        {CELL_RIGHT, {int(cx + pixelSize), int(cy + pixelSize), int(pixelSize * 3), int(pixelSize * 2)}},
+      };
+      for (auto const &side : sides) {
+        if (side.first & mg.getCell(x, y)) {
+          SDL_RenderFillRect(renderer, &side.second);
         }
       }
     }
   }
 
   // Solution.
-  SDL_SetRenderDrawColor(renderer, 200, 50, 50, 255);
+  SDL_SetRenderDrawColor(renderer, 200, 220, 240, 255);
   coord_t c{mg.getW() - 1, mg.getH() - 1};
   while (true) {
     uint p = mg.getCell(c) >> 4;

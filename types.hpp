@@ -1,6 +1,7 @@
 #pragma once
 
 #include <utility>
+#include <iostream>
 
 typedef unsigned int uint;
 
@@ -18,6 +19,8 @@ uint opposite_dir(uint dir) {
     case CELL_DOWN: return CELL_UP;
     case CELL_LEFT: return CELL_RIGHT;
     case CELL_RIGHT: return CELL_LEFT;
-    default: exit(1);
+    default: 
+      std::cerr << "Invalid direction mask:" << dir << std::endl;
+      exit(1);
   }
 }
