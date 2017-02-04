@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
   MazeGenerator mg{static_cast<size_t>(std::stoi(argv[1])), static_cast<size_t>(std::stoi(argv[2]))};
 
   // print_maze__ascii(mg);
-  DrawEngine de{mg, 8};
+  DrawEngine de{mg, 2};
 
   return 0;
 }

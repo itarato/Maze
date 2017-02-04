@@ -8,6 +8,11 @@ class MazeGenerator {
 private:
   size_t w;
   size_t h;
+  // Cells keep the allowed movements and parent relationship for each cell in the following way:
+  // The first 4 bits are the allowed path mask. (Path direction are from types.hpp.) For example
+  // If bit-0 is 1 than UP is allowed. Bit-1 == 1 indicates RIGHT.
+  // Bit 4-7 to mark the parent using the same directions. For example if bit-4 is 1 than the
+  // parent is the cell UP to the current cell.
   std::vector<uint> cells;
 
   void reset();

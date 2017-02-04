@@ -18,10 +18,12 @@ void MazeGenerator::reset() {
 }
 
 void MazeGenerator::generate() {
+  // Run as long as there is a maze generated that reaches the very end.
   while (cells.back() == CELL_EMPTY) {
     reset();
     attemptGeneration();
   }
+  // Carve the destination.
   cells[w * h - 1] |= CELL_DOWN;
 }
 
