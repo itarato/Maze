@@ -30,6 +30,8 @@ public:
   uint getCell(coord_t);
   size_t getW();
   size_t getH();
+  coord_t getStart();
+  coord_t getEnd();
 
   friend std::ostream& operator<<(std::ostream&, const MazeGenerator&);
 };

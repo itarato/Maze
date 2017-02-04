@@ -67,6 +67,9 @@ size_t MazeGenerator::c2idx(coord_t c) { return c.second * w + c.first; }
 uint MazeGenerator::getCell(size_t x, size_t y) { return cells[c2idx(x, y)]; }
 uint MazeGenerator::getCell(coord_t c) { return cells[c2idx(c)]; }
 
+coord_t MazeGenerator::getStart() { return {0, 0}; }
+coord_t MazeGenerator::getEnd() { return {getW() - 1, getH() - 1}; }
+
 std::map<uint, coord_t> MazeGenerator::getAvailables(coord_t c) {
   std::map<uint, coord_t> m;
   std::map<uint, std::pair<int, int>> dirs {

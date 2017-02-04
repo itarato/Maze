@@ -125,4 +125,8 @@ void DrawEngine::draw() {
       default: break;
     }
   }
+
+  // Putting the exit path.
+  SDL_Rect lastPath{int(mg.getW() * pixelSize * 4 + pixelSize * 1.5), int(mg.getH() * pixelSize * 4 + pixelSize * 1.5), int(pixelSize), int(pixelSize * 4)};
+  SDL_RenderFillRect(renderer, &lastPath);
 }
