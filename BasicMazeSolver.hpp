@@ -15,7 +15,7 @@ public:
 };
 
 BasicMazeSolver::BasicMazeSolver(MazeGenerator& _mg) : mg(_mg), history(mg.getH() * mg.getW(), CELL_EMPTY) {
-  
+  Point p{mg.getStart()};
 }
 
 void BasicMazeSolver::solve() {

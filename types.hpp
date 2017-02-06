@@ -29,6 +29,10 @@ uint opposite_dir(uint dir) {
 struct Point {
   uint x;
   uint y;
+
+  Point (uint _x, uint _y) : x(_x), y(_y) {};
+  Point (coord_t c) : Point(c.first, c.second) {};
+  
   Point operator+(const Point& rhs) const {
     return Point{x + rhs.x, y + rhs.y};
   }
@@ -45,4 +49,8 @@ public:
   void setW(size_t _w) { w = _w; };
   void setH(size_t _h) { h = _h; };
   const T& at2D(size_t x, size_t y) { return std::vector<T, Allocator>::at(y * w + x); };
+
+  // Convenience.
+  void bitOr(size_t x, size_t y, T mask)  { std::vector<T, Allocator>::operator[](y * w + x) |= mask; };
+  void bitAnd(size_t x, size_t y, T mask) { std::vector<T, Allocator>::operator[](y * w + x) &= mask; };
 };
