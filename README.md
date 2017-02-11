@@ -23,7 +23,13 @@ c++ \
   -framework SDL2 \
   -std=c++11 \
   -stdlib=libc++ \
-  main.cpp -o main && ./main <WIDTH> <HEIGHT>
+  main.cpp -o main && ./main <WIDTH> <HEIGHT> 
+```
+
+Or possibly for linux:
+
+```bash
+clang++-3.9 `sdl2-config --cflags` `sdl2-config --libs` -std=c++11 main.cpp -o main && ./main <W> <H>
 ```
 
 
