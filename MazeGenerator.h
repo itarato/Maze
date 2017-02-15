@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <map>
-#include "types.hpp"
+#include "types.h"
 
 class MazeGenerator {
 private:
@@ -13,21 +13,21 @@ private:
   // If bit-0 is 1 than UP is allowed. Bit-1 == 1 indicates RIGHT.
   // Bit 4-7 to mark the parent using the same directions. For example if bit-4 is 1 than the
   // parent is the cell UP to the current cell.
-  std::vector<uint> cells;
+  std::vector<uint_t> cells;
 
   void reset();
   void attemptGeneration();
   void generate();
   size_t c2idx(size_t, size_t);
   size_t c2idx(coord_t);
-  std::map<uint, coord_t> getAvailables(coord_t);
+  std::map<uint_t, coord_t> getAvailables(coord_t);
 
 public:
   MazeGenerator(size_t, size_t);
 
-  std::vector<uint>& getMaze();
-  uint getCell(size_t, size_t);
-  uint getCell(coord_t);
+  std::vector<uint_t>& getMaze();
+  uint_t getCell(size_t, size_t);
+  uint_t getCell(coord_t);
   size_t getW();
   size_t getH();
   coord_t getStart();

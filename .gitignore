@@ -1,1 +1,10 @@
 main
+.vs/
+Debug
+*.db
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.opendb
+*.vcxproj.user
+*.out

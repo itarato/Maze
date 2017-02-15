@@ -14,7 +14,7 @@ MazeGenerator::MazeGenerator(size_t w, size_t h) : w(w), h(h), cells(w * h, CELL
 }
 
 void MazeGenerator::reset() {
-  std::for_each(cells.begin(), cells.end(), [](uint& v){ v = CELL_EMPTY; });
+  std::for_each(cells.begin(), cells.end(), [](uint_t& v){ v = CELL_EMPTY; });
 }
 
 void MazeGenerator::generate() {
@@ -37,7 +37,7 @@ void MazeGenerator::attemptGeneration() {
     q.pop();
 
     auto availables = getAvailables(coord);
-    std::vector<std::pair<uint, coord_t>> availables_flat;
+    std::vector<std::pair<uint_t, coord_t>> availables_flat;
     std::copy(availables.begin(), availables.end(), std::back_inserter(availables_flat));
 
     std::random_device _random_device;
@@ -48,7 +48,7 @@ void MazeGenerator::attemptGeneration() {
         cells[c2idx(coord)] |= elem.first;
         q.push(elem.second);
 
-        uint _opposite = opposite_dir(elem.first);
+        uint_t _opposite = opposite_direction__(elem.first);
         cells[c2idx(elem.second)] = _opposite | (_opposite << 4);
         
         if (_random_dist(_random_device) < 9) break;
@@ -56,7 +56,7 @@ void MazeGenerator::attemptGeneration() {
   }
 }
 
-std::vector<uint>& MazeGenerator::getMaze() { return cells; }
+std::vector<uint_t>& MazeGenerator::getMaze() { return cells; }
 
 size_t MazeGenerator::getW() { return w; }
 size_t MazeGenerator::getH() { return h; }
@@ -64,15 +64,15 @@ size_t MazeGenerator::getH() { return h; }
 size_t MazeGenerator::c2idx(size_t x, size_t y) { return y * w + x; }
 size_t MazeGenerator::c2idx(coord_t c) { return c.second * w + c.first; }
 
-uint MazeGenerator::getCell(size_t x, size_t y) { return cells[c2idx(x, y)]; }
-uint MazeGenerator::getCell(coord_t c) { return cells[c2idx(c)]; }
+uint_t MazeGenerator::getCell(size_t x, size_t y) { return cells[c2idx(x, y)]; }
+uint_t MazeGenerator::getCell(coord_t c) { return cells[c2idx(c)]; }
 
 coord_t MazeGenerator::getStart() { return {0, 0}; }
 coord_t MazeGenerator::getEnd() { return {getW() - 1, getH() - 1}; }
 
-std::map<uint, coord_t> MazeGenerator::getAvailables(coord_t c) {
-  std::map<uint, coord_t> m;
-  std::map<uint, std::pair<int, int>> dirs {
+std::map<uint_t, coord_t> MazeGenerator::getAvailables(coord_t c) {
+  std::map<uint_t, coord_t> m;
+  std::map<uint_t, std::pair<int, int>> dirs {
     {CELL_LEFT, {-1, 0}}, 
     {CELL_RIGHT, {1, 0}},
     {CELL_UP, {0, -1}},
