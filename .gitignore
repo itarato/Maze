@@ -8,3 +8,5 @@ Debug
 *.opendb
 *.vcxproj.user
 *.out
+.vscode
+
