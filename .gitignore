@@ -9,4 +9,4 @@ Debug
 *.vcxproj.user
 *.out
 .vscode
-
+*.o
