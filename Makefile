@@ -1,14 +1,17 @@
-SOURCES := *.cpp
-# Objs are all the sources, with .cpp replaced by .o
-OBJS := $(SOURCES:.cpp=.o)
+CXX=clang++-3.8
+CXXFLAGS=`sdl2-config --cflags` -g -std=c++11 -Wall -pedantic
+BIN=main
 
-# INCLUDES=""
-CFLAGS="-I/Library/Frameworks/SDL2.framework/Headers -F/Library/Frameworks -framework SDL2 -std=c++11"
+SRC=$(wildcard *.cpp)
+OBJ=$(SRC:%.cpp=%.o)
 
-all: maze
+all: $(OBJ)
+	$(CXX) -o $(BIN) `sdl2-config --libs` $^
 
-# Compile the binary 't' by calling the compiler with cflags, lflags, and any libs (if defined) and the list of objects.
-maze: $(OBJS) $(CC) $(CFLAGS) -o maze $(OBJS) $(LFLAGS) $(LIBS)
+%.o: %.c
+	$(CXX) $@ -c $<
 
-# Get a .o from a .cpp by calling compiler with cflags and includes (if defined)
-.cpp.o: $(CC) $(CFLAGS) $(INCLUDES) -c $<
+clean:
+	rm -f *.o
+	rm $(BIN)
+

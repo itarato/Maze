@@ -15,10 +15,11 @@ int main(int argc, char* argv[]) {
   MazeGenerator mg{static_cast<size_t>(std::stoi(argv[1])), static_cast<size_t>(std::stoi(argv[2]))};
 
   //print_maze__ascii(mg);
-  DrawEngine de{mg, 4};
+  DrawEngine de{mg, 2};
 
   BasicMazeSolver bms{mg};
   bms.solve();  
 
   return 0;
 }
+  

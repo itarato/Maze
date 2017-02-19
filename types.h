@@ -1,5 +1,4 @@
-#ifndef TYPES_H
-#define TYPES_H
+#pragma once
 
 #include <utility>
 #include <iostream>
@@ -48,5 +47,3 @@ public:
   void bitOr(Point p, T mask)  { this->bitOr(p.x, p.y, mask); };
   void bitAnd(Point p, T mask) { this->bitAnd(p.x, p.y, mask); };
 };
-
-#endif

@@ -1,8 +1,8 @@
 #pragma once
 
-class MazeGenerator
+class MazeGenerator;
 
-#include "SDL.h"
+#include <SDL2/SDL.h>
 
 class DrawEngine {
 private:
