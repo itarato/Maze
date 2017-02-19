@@ -1,30 +1,10 @@
-#pragma once
-
 #include "SDL.h"
 #include <iostream>
 #include <map>
 
 #include "MazeGenerator.h"
 #include "types.h"
-
-class DrawEngine {
-private:
-  SDL_Window *win;
-  SDL_Renderer *renderer;
-
-  MazeGenerator& mg;
-  size_t pixelSize;
-  
-  bool quit;
-
-  void draw();
-
-public:
-  DrawEngine(MazeGenerator&, size_t);
-  ~DrawEngine();
-
-  void run();
-};
+#include "2DMazePrinterSDL.h"
 
 DrawEngine::DrawEngine(MazeGenerator& _mg, size_t _pixelSize = 1) : mg(_mg), pixelSize(_pixelSize), quit(false) {
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {

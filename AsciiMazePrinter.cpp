@@ -1,8 +1,7 @@
-#pragma once
-
 #include <iostream>
-#include "MazeGenerator.h"
 #include <string>
+#include "MazeGenerator.h"
+#include "AsciiMazePrinter.h"
 
 void print_maze__ascii(MazeGenerator& mg) {
   std::string w[16] = {" ", "║", "═", "╚", "║", "║", "╔", "╠", "═", "╝", "═", "╩", "╗", "╣", "╦", "╬"};

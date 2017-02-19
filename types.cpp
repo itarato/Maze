@@ -1,5 +1,3 @@
-#pragma once
-
 #include "types.h"
 
 uint_t opposite_direction__(uint_t dir) {

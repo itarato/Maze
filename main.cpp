@@ -2,9 +2,9 @@
 #include <string>
 
 #include "MazeGenerator.h"
-#include "AsciiMazePrinter.hpp"
-#include "2DMazePrinterSDL.cpp"
-#include "BasicMazeSolver.cpp"
+#include "AsciiMazePrinter.h"
+#include "2DMazePrinterSDL.h"
+#include "BasicMazeSolver.h"
 
 int main(int argc, char* argv[]) {
   if (argc < 3) {
@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
   MazeGenerator mg{static_cast<size_t>(std::stoi(argv[1])), static_cast<size_t>(std::stoi(argv[2]))};
 
   //print_maze__ascii(mg);
-  DrawEngine de{mg, 8};
+  DrawEngine de{mg, 4};
 
   BasicMazeSolver bms{mg};
   bms.solve();  

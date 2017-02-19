@@ -1,6 +1,3 @@
-#pragma once
-
-#include "MazeGenerator.h"
 #include <iostream>
 #include <queue>
 #include <utility>
@@ -8,6 +5,7 @@
 #include <algorithm>
 #include <iterator>
 #include <random>
+#include "MazeGenerator.h"
 
 MazeGenerator::MazeGenerator(size_t w, size_t h) : w(w), h(h), cells(w * h, CELL_EMPTY) {
   generate();
