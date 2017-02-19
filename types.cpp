@@ -1,6 +1,6 @@
 #include "types.h"
 
-uint_t opposite_direction__(uint_t dir) {
+uint_t opposite_direction(uint_t dir) {
 	switch (dir) {
 	case CELL_UP: return CELL_DOWN;
 	case CELL_DOWN: return CELL_UP;

@@ -12,7 +12,7 @@ DrawEngine::DrawEngine(MazeGenerator& _mg, size_t _pixelSize = 1) : mg(_mg), pix
     exit(1);
   }
 
-  win = SDL_CreateWindow("Maze", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (mg.getW() + 2) * pixelSize * 4, (mg.getH() + 2) * pixelSize * 4, SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS);
+  win = SDL_CreateWindow("Maze", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, (mg.getW() + 2) * pixelSize * 4, (mg.getH() + 2) * pixelSize * 4, SDL_WINDOW_SHOWN);
   if (win == nullptr) {
     std::cerr << "Window creation error\n";
     exit(1);
@@ -78,6 +78,11 @@ void DrawEngine::draw() {
 
   // Solution.
   SDL_SetRenderDrawColor(renderer, 200, 220, 240, 255);
+
+  // Quick fix to cover the very first block - do to the shifted print.
+  SDL_Rect first_box_rect{int(pixelSize * 5.5), int(pixelSize * 5.5), int(pixelSize), int(pixelSize)};
+  SDL_RenderFillRect(renderer, &first_box_rect);
+
   coord_t c{mg.getW() - 1, mg.getH() - 1};
   while (true) {
     uint_t p = mg.getCell(c) >> 4;
@@ -105,8 +110,4 @@ void DrawEngine::draw() {
       default: break;
     }
   }
-
-  // Putting the exit path.
-  SDL_Rect lastPath{int(mg.getW() * pixelSize * 4 + pixelSize * 1.5), int(mg.getH() * pixelSize * 4 + pixelSize * 1.5), int(pixelSize), int(pixelSize * 4)};
-  SDL_RenderFillRect(renderer, &lastPath);
 }

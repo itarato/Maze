@@ -21,14 +21,11 @@ void MazeGenerator::generate() {
     reset();
     attemptGeneration();
   }
-  // Carve the destination.
-  cells[w * h - 1] |= CELL_DOWN;
 }
 
 void MazeGenerator::attemptGeneration() {
   std::queue<coord_t> q;
   q.push({0, 0});
-  cells[c2idx(0, 0)] = CELL_UP | (CELL_UP << 4);
 
   while (!q.empty()) {
     auto coord = q.front();
@@ -46,7 +43,7 @@ void MazeGenerator::attemptGeneration() {
         cells[c2idx(coord)] |= elem.first;
         q.push(elem.second);
 
-        uint_t _opposite = opposite_direction__(elem.first);
+        uint_t _opposite = opposite_direction(elem.first);
         cells[c2idx(elem.second)] = _opposite | (_opposite << 4);
         
         if (_random_dist(_random_device) < 9) break;
@@ -70,14 +67,8 @@ coord_t MazeGenerator::getEnd() { return {getW() - 1, getH() - 1}; }
 
 std::map<uint_t, coord_t> MazeGenerator::getAvailables(coord_t c) {
   std::map<uint_t, coord_t> m;
-  std::map<uint_t, std::pair<int, int>> dirs {
-    {CELL_LEFT, {-1, 0}}, 
-    {CELL_RIGHT, {1, 0}},
-    {CELL_UP, {0, -1}},
-    {CELL_DOWN, {0, 1}},
-  };
 
-  for (const auto& elem : dirs) {
+  for (const auto& elem : OFFSET_MAP) {
     int offX = c.first + elem.second.first;
     int offY = c.second + elem.second.second;
     if (0 <= offX && offX < w && 0 <= offY && offY < h && cells[c2idx(offX, offY)] == CELL_EMPTY) {

@@ -3,10 +3,11 @@
 #include <utility>
 #include <iostream>
 #include <vector>
+#include <map>
 
-typedef unsigned int uint_t;
-
-typedef std::pair<uint_t, uint_t> coord_t;
+using uint_t = unsigned int;
+using coord_t = std::pair<uint_t, uint_t>;
+using coord_i_t = std::pair<int, int>;
 
 const uint_t CELL_EMPTY = 0x0;
 const uint_t CELL_UP    = 0x1;
@@ -14,7 +15,14 @@ const uint_t CELL_RIGHT = 0x2;
 const uint_t CELL_DOWN  = 0x4;
 const uint_t CELL_LEFT  = 0x8;
 
-uint_t opposite_direction__(uint_t);
+static std::map<uint_t, coord_i_t> OFFSET_MAP = {
+  {CELL_LEFT, {-1, 0}}, 
+  {CELL_RIGHT, {1, 0}},
+  {CELL_UP, {0, -1}},
+  {CELL_DOWN, {0, 1}},
+};
+
+uint_t opposite_direction(uint_t);
 
 struct Point {
   uint_t x;
