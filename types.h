@@ -42,7 +42,8 @@ private:
   size_t w;
   size_t h;
 public:
-  Vector2D(size_t s, T def) : std::vector<T, Allocator>(s, def) {};
+  Vector2D(size_t _w, size_t _h, T def) : std::vector<T, Allocator>(_w * _h, def), w(_w), h(_h) {};
+  Vector2D(size_t s, T def) : std::vector<T, Allocator>(s, def), w(0), h(0) {};
 
   void setW(size_t _w) { w = _w; };
   void setH(size_t _h) { h = _h; };
