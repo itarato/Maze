@@ -1,6 +1,6 @@
 #pragma once
 
-class MazeGenerator
+class MazeGenerator;
 
 #include "types.h"
 
