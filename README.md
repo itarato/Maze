@@ -17,10 +17,10 @@ The purpose is to see how a maze can be generated and solved, what kind of varia
 # Run
 
 ```bash
-make && ./main <W> <H>
+make && ./main <W> <H> -ag
 ```
 
-Where you use the appropriate maze W and H params.
+Where you use the appropriate maze W and H params. `-a` is to present an Ascii map. `-g` is to present a graphical UI (SDL).
 
 
 # Appetizer
