@@ -1,10 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include <SDL2/SDL.h>
 
 #include "MazeGenerator.h"
 #include "types.h"
 #include "BasicMazeSolver.h"
+#include "2DMazePrinterSDL.h"
 
 BasicMazeSolver::BasicMazeSolver(MazeGenerator& _mg) : mg(_mg), history(mg.getW(), mg.getH(), CELL_EMPTY) {
   solve();
@@ -52,4 +54,19 @@ void BasicMazeSolver::solve() {
   }
 
   std::cout << "Solved\n";
+}
+
+void BasicMazeSolver::draw(DrawEngine *engine) {
+  SDL_SetRenderDrawColor(engine->renderer, 255, 100, 100, 255);
+  for (int y = 0; y < mg.getH(); y++) {
+    for (int x = 0; x < mg.getW(); x++) {
+      uint_t h = history.at2D(x, y);
+      if (h > 0) {
+        int cx = int(((x + 1.375) * engine->pixelSize * 4));
+        int cy = int(((y + 1.375) * engine->pixelSize * 4));
+        SDL_Rect mark{cx, cy, int(engine->pixelSize), int(engine->pixelSize)};
+        SDL_RenderFillRect(engine->renderer, &mark);
+      }
+    }
+  }
 }

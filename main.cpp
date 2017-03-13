@@ -34,9 +34,14 @@ int main(int argc, char* argv[]) {
   MazeGenerator mg{w, h};
 
   if (flagDrawAsciiMap) print_maze__ascii(mg);
-  if (flagDrawGraphicalMap) DrawEngine de{mg, 8};
+  if (flagDrawGraphicalMap) {
+    DrawEngine de{mg, 8};
 
-  BasicMazeSolver bms{mg};
+    BasicMazeSolver bms{mg};
+    de.add_drawer(&bms);
+
+    de.run();
+  }
 
   return 0;
 }

@@ -1,13 +1,15 @@
 #pragma once
 
 class MazeGenerator;
+class DrawEngine;
 
 #include "types.h"
+#include "Drawer.h"
 
 /**
  * This solver is pretending to only see the path it had walked (with memory).
  */
-class BasicMazeSolver {
+class BasicMazeSolver : public Drawer {
 private:
   MazeGenerator& mg;
   // History keeps track of the parents in a matrix.
@@ -18,4 +20,5 @@ private:
 public:
   BasicMazeSolver(MazeGenerator&);
   void solve();
+  virtual void draw(DrawEngine *);
 };

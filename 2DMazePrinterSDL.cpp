@@ -5,6 +5,7 @@
 #include "MazeGenerator.h"
 #include "types.h"
 #include "2DMazePrinterSDL.h"
+#include "Drawer.h"
 
 DrawEngine::DrawEngine(MazeGenerator& _mg, size_t _pixelSize = 1) : mg(_mg), pixelSize(_pixelSize), quit(false) {
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -23,8 +24,6 @@ DrawEngine::DrawEngine(MazeGenerator& _mg, size_t _pixelSize = 1) : mg(_mg), pix
     std::cerr << "Renderer creation error\n";
     exit(1);
   }
-
-  run();
 }
 
 DrawEngine::~DrawEngine() {
@@ -110,4 +109,12 @@ void DrawEngine::draw() {
       default: break;
     }
   }
+
+  for (auto drawer : drawers) {
+    drawer->draw(this);
+  }
+}
+
+void DrawEngine::add_drawer(Drawer* drawer) {
+  drawers.push_back(drawer);
 }
